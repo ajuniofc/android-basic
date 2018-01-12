@@ -4,8 +4,16 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/lista"
+        android:id="@+id/lista_listaId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/lista_btn_adicionarId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/lista_adicionar"/>
 
 </RelativeLayout>

@@ -1,9 +1,13 @@
 <resources>
+    <!-- Titulo do App -->
     <string name="app_name">Agenda</string>
 
     <!-- Titulos de cada Activity -->
     <string name="lista_alunos_activity">Lista de Alunos</string>
     <string name="formulario_activity">Formulário</string>
+
+    <!-- Activity Lista -->
+    <string name="lista_adicionar">+</string>
 
     <!-- Activity Formulario -->
     <string name="formulario_hint_nome">Nome</string>
