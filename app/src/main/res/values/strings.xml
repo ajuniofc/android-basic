@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidBasico</string>
+    <string name="app_name">Agenda</string>
 
     <!-- Titulos de cada Activity -->
     <string name="lista_alunos_activity">Lista de Alunos</string>
