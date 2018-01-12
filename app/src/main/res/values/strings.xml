@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidBasico</string>
+
+    <!-- Titulos de cada Activity -->
+    <string name="lista_alunos_activity">Lista de Alunos</string>
+    <string name="formulario_activity">Formulário</string>
 </resources>
