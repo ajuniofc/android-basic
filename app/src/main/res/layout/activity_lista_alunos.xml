@@ -10,10 +10,18 @@
 
     <Button
         android:id="@+id/lista_btn_adicionarId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:textColor="@color/cor_branca"
+        android:textSize="40sp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/lista_adicionar"/>
+        android:text="@string/lista_adicionar"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:elevation="6dp"
+        android:background="@drawable/fundo_botao_adicionar"
+        android:stateListAnimator="@null"/>
 
 </RelativeLayout>
