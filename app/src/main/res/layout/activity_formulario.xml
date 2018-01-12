@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/formulario_nome"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/formulario_hint_nome"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/formulario_endereco"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/formulario_hint_endereco"/>
+        <EditText
+            android:id="@+id/formulario_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/formulario_hint_nome"/>
 
-    <EditText
-        android:id="@+id/formulario_telefone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/formulario_hint_telefone"/>
+        <EditText
+            android:id="@+id/formulario_endereco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/formulario_hint_endereco"/>
 
-    <EditText
-        android:id="@+id/formulario_site"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/formulario_hint_site"/>
+        <EditText
+            android:id="@+id/formulario_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/formulario_hint_telefone"/>
 
-    <RatingBar
-        android:id="@+id/formulario_nota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:numStars="5"
-        android:max="10"/>
+        <EditText
+            android:id="@+id/formulario_site"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/formulario_hint_site"/>
 
-    <Button
-        android:id="@+id/formulario_salvar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/formulario_hint_salvar"/>
+        <RatingBar
+            android:id="@+id/formulario_nota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:numStars="5"
+            android:max="10"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/formulario_salvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/formulario_hint_salvar"/>
+
+    </LinearLayout>
+
+</ScrollView>
