@@ -10,4 +10,5 @@
     <string name="formulario_hint_endereco">Endereço</string>
     <string name="formulario_hint_telefone">Telefone</string>
     <string name="formulario_hint_site">Site</string>
+    <string name="formulario_hint_salvar">Salvar</string>
 </resources>
