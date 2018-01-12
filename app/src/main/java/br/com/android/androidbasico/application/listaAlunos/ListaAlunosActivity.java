@@ -1,7 +1,9 @@
-package br.com.android.androidbasico;
+package br.com.android.androidbasico.application.listaAlunos;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import br.com.android.androidbasico.R;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
