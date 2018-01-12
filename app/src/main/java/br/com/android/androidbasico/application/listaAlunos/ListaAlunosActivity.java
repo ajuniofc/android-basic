@@ -1,5 +1,6 @@
 package br.com.android.androidbasico.application.listaAlunos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
 
 public class ListaAlunosActivity extends AppCompatActivity {
     private Button mButaoAdicionar;
@@ -20,7 +22,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
         mButaoAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intentFormulario);
             }
         });
     }
