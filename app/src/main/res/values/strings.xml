@@ -4,4 +4,10 @@
     <!-- Titulos de cada Activity -->
     <string name="lista_alunos_activity">Lista de Alunos</string>
     <string name="formulario_activity">Formulário</string>
+
+    <!-- Activity Formulario -->
+    <string name="formulario_hint_nome">Nome</string>
+    <string name="formulario_hint_endereco">Endereço</string>
+    <string name="formulario_hint_telefone">Telefone</string>
+    <string name="formulario_hint_site">Site</string>
 </resources>
