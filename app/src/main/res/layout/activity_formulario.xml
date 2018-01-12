@@ -41,12 +41,6 @@
             android:numStars="5"
             android:max="10"/>
 
-        <Button
-            android:id="@+id/formulario_salvar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/formulario_hint_salvar"/>
-
     </LinearLayout>
 
 </ScrollView>
