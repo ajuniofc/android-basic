@@ -1,9 +1,12 @@
 package br.com.android.androidbasico.application.listaAlunos;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -24,6 +27,7 @@ import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
+    public static final int CAMERA_CODE = 123;
     private Button mButaoAdicionar;
     private ListView listaAlunos;
     @Override
@@ -57,11 +61,43 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         MenuItem site = menu.add(R.string.lista_menu_contexto_site);
         site.setOnMenuItemClickListener(onMenuSiteClickListener(aluno));
 
+        MenuItem ligar = menu.add(R.string.lista_menu_contexto_ligar);
+        ligar.setOnMenuItemClickListener(onMenuLigarClickListener(aluno));
+
         MenuItem sms = menu.add(R.string.lista_menu_contexto_sms);
         sms.setOnMenuItemClickListener(onMenuSMSClickListener(aluno));
 
         MenuItem mapa = menu.add(R.string.lista_menu_contexto_mapa);
         mapa.setOnMenuItemClickListener(onMenuMapaClickListener(aluno));
+    }
+
+    private MenuItem.OnMenuItemClickListener onMenuLigarClickListener(final Aluno aluno) {
+        return new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(ListaAlunosActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE}, CAMERA_CODE);
+                }else {
+                    Intent intentLigar = new Intent(Intent.ACTION_CALL);
+                    intentLigar.setData(Uri.parse("tel:" + aluno.getTelefone()));
+                    startActivity(intentLigar);
+                }
+                return false;
+            }
+        };
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case CAMERA_CODE:
+
+                break;
+        }
     }
 
     private MenuItem.OnMenuItemClickListener onMenuMapaClickListener(final Aluno aluno) {
