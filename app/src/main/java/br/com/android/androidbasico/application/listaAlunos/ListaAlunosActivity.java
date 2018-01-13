@@ -20,7 +20,7 @@ import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
-public class ListaAlunosActivity extends AppCompatActivity {
+public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
     private Button mButaoAdicionar;
     private ListView listaAlunos;
     @Override
@@ -29,15 +29,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
 
         listaAlunos = (ListView) findViewById(R.id.lista_listaId);
+        listaAlunos.setOnItemClickListener(this);
 
         mButaoAdicionar = (Button) findViewById(R.id.lista_btn_adicionarId);
-        mButaoAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-                startActivity(intentFormulario);
-            }
-        });
+        mButaoAdicionar.setOnClickListener(this);
 
         registerForContextMenu(listaAlunos);
     }
@@ -75,5 +70,20 @@ public class ListaAlunosActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.buscarAlunos();
         dao.close();
         return alunos;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.lista_btn_adicionarId:
+                Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intentFormulario);
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
     }
 }
