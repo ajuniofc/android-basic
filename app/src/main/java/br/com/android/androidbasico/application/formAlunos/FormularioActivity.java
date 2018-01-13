@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
@@ -20,6 +23,7 @@ public class FormularioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario);
 
         formHelper = new FormHelper(this);
+        Aluno aluno = (Aluno) getIntent().getSerializableExtra(Constantes.ALUNO);
     }
 
     @Override
