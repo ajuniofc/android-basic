@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE = "agenda.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     public DataBaseOpenHelper(Context context) {
         super(context, DATABASE, null, VERSION);
@@ -24,16 +24,20 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
                 Alunos.ENDERECO+" TEXT," +
                 Alunos.TELEFONE+" TEXT," +
                 Alunos.SITE+" TEXT," +
-                Alunos.NOTA+" REAL);";
+                Alunos.NOTA+" REAL," +
+                Alunos.CAMINHO_FOTO+" TEXT);";
 
         db.execSQL(sqlCreateTableAlunos);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        String sql = "DROP TABLE IF EXISTS "+Alunos.TABELA;
-        db.execSQL(sql);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "";
+        switch (oldVersion){
+            case 1:
+                sql = "ALTER TABLE "+Alunos.TABELA+" ADD COLUMN "+Alunos.CAMINHO_FOTO+" TEXT";
+                db.execSQL(sql);
+        }
     }
 
     public static class Alunos{
@@ -44,9 +48,10 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
         public static final String TELEFONE = "telefone";
         public static final String SITE = "site";
         public static final String NOTA = "nota";
+        public static final String CAMINHO_FOTO = "caminho_foto";
 
         public static final String[] COLUNAS = new String[]{
-                ID, NOME, ENDERECO, TELEFONE, SITE, NOTA
+                ID, NOME, ENDERECO, TELEFONE, SITE, NOTA, CAMINHO_FOTO
         };
     }
 }
