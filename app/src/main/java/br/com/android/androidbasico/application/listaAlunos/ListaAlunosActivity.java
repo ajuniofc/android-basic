@@ -59,6 +59,21 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
         MenuItem sms = menu.add(R.string.lista_menu_contexto_sms);
         sms.setOnMenuItemClickListener(onMenuSMSClickListener(aluno));
+
+        MenuItem mapa = menu.add(R.string.lista_menu_contexto_mapa);
+        mapa.setOnMenuItemClickListener(onMenuMapaClickListener(aluno));
+    }
+
+    private MenuItem.OnMenuItemClickListener onMenuMapaClickListener(final Aluno aluno) {
+        return new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intentMapa = new Intent(Intent.ACTION_VIEW);
+                intentMapa.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+                startActivity(intentMapa);
+                return false;
+            }
+        };
     }
 
     private MenuItem.OnMenuItemClickListener onMenuSMSClickListener(final Aluno aluno) {
