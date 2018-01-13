@@ -9,7 +9,9 @@
     <!-- Activity Lista -->
     <string name="lista_adicionar">+</string>
     <string name="lista_menu_contexto_deletar">Deletar</string>
-    <string name="lista_menu_contexto_site">Visitar Site</string>
+    <string name="lista_menu_contexto_site">Visitar site</string>
+    <string name="lista_menu_contexto_sms">Enviar SMS</string>
+    <string name="lista_menu_contexto_mapa">Visualizar no mapa</string>
 
     <!-- Activity Formulario -->
     <string name="formulario_hint_nome">Nome</string>

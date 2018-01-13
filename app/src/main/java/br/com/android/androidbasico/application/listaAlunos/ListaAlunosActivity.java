@@ -56,6 +56,21 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
         MenuItem site = menu.add(R.string.lista_menu_contexto_site);
         site.setOnMenuItemClickListener(onMenuSiteClickListener(aluno));
+
+        MenuItem sms = menu.add(R.string.lista_menu_contexto_sms);
+        sms.setOnMenuItemClickListener(onMenuSMSClickListener(aluno));
+    }
+
+    private MenuItem.OnMenuItemClickListener onMenuSMSClickListener(final Aluno aluno) {
+        return new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intentSMS = new Intent(Intent.ACTION_VIEW) ;
+                intentSMS.setData(Uri.parse("sms:"+aluno.getTelefone()));
+                startActivity(intentSMS);
+                return false;
+            }
+        };
     }
 
     private MenuItem.OnMenuItemClickListener onMenuSiteClickListener(final Aluno aluno) {
