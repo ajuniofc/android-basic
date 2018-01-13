@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
+import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
@@ -23,7 +24,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        List<Aluno> alunos = new ArrayList<>();
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.buscarAlunos();
+        dao.close();
         listaAlunos = (ListView) findViewById(R.id.lista_listaId);
         ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);

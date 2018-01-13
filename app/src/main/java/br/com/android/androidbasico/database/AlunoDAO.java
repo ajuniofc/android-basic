@@ -2,7 +2,11 @@ package br.com.android.androidbasico.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.android.androidbasico.model.Aluno;
 
@@ -27,6 +31,28 @@ public class AlunoDAO {
 
     public void insere(Aluno aluno){
         getDataBase().insert(DataBaseOpenHelper.Alunos.TABELA,null,getContentValues(aluno));
+    }
+
+    public List<Aluno> buscarAlunos() {
+        List<Aluno> list = new ArrayList<>();
+        String sql = "SELECT * FROM "+DataBaseOpenHelper.Alunos.TABELA;
+        Cursor cursor = getDataBase().rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            Aluno aluno = recuperaAluno(cursor);
+            list.add(aluno);
+        }
+        cursor.close();
+        return list;
+    }
+
+    private Aluno recuperaAluno(Cursor cursor) {
+        Aluno aluno = new Aluno();
+        aluno.setNome(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOME)));
+        aluno.setEndereco(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ENDERECO)));
+        aluno.setTelefone(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.TELEFONE)));
+        aluno.setSite(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.SITE)));
+        aluno.setNota(cursor.getDouble(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOTA)));
+        return aluno;
     }
 
     public void close(){
