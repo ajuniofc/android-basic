@@ -3,6 +3,7 @@ package br.com.android.androidbasico.application.listaAlunos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,12 +35,19 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 startActivity(intentFormulario);
             }
         });
+
+        registerForContextMenu(listaAlunos);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         carregaLista();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
     }
 
     private void carregaLista(){
