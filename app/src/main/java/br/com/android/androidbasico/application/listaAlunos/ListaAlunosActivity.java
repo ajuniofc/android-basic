@@ -8,15 +8,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
+import br.com.android.androidbasico.model.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
     private Button mButaoAdicionar;
+    private ListView listaAlunos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+
+        List<Aluno> alunos = new ArrayList<>();
+        listaAlunos = (ListView) findViewById(R.id.lista_listaId);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1, alunos);
+        listaAlunos.setAdapter(adapter);
 
         mButaoAdicionar = (Button) findViewById(R.id.lista_btn_adicionarId);
         mButaoAdicionar.setOnClickListener(new View.OnClickListener() {
