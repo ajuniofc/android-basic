@@ -17,12 +17,36 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
+        String sqlCreateTableAlunos = "CREATE TABLE "+Alunos.TABELA+ " ("+
+                Alunos.ID+" INTEGER PRIMARY KEY," +
+                Alunos.NOME+" TEXT NOT NULL," +
+                Alunos.ENDERECO+" TEXT," +
+                Alunos.TELEFONE+" TEXT," +
+                Alunos.SITE+" TEXT," +
+                Alunos.NOTA+" REAL);";
 
+        db.execSQL(sqlCreateTableAlunos);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        String sql = "DROP TABLE IF EXISTS "+Alunos.TABELA;
+        db.execSQL(sql);
+        onCreate(db);
+    }
 
+    public static class Alunos{
+        public static final String TABELA = "alunos";
+        public static final String ID = "_id";
+        public static final String NOME = "nome";
+        public static final String ENDERECO = "endereco";
+        public static final String TELEFONE = "telefone";
+        public static final String SITE = "site";
+        public static final String NOTA = "nota";
+
+        public static final String[] COLUNAS = new String[]{
+                ID, NOME, ENDERECO, TELEFONE, SITE, NOTA
+        };
     }
 }
