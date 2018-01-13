@@ -47,6 +47,7 @@ public class AlunoDAO {
 
     private Aluno recuperaAluno(Cursor cursor) {
         Aluno aluno = new Aluno();
+        aluno.setId(cursor.getLong(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ID)));
         aluno.setNome(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOME)));
         aluno.setEndereco(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ENDERECO)));
         aluno.setTelefone(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.TELEFONE)));
