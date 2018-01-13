@@ -51,6 +51,12 @@ public class AlunoDAO {
         getDataBase().delete(DataBaseOpenHelper.Alunos.TABELA,where,params);
     }
 
+    public void atualiza(Aluno aluno) {
+        String where = DataBaseOpenHelper.Alunos.ID+" = ?";
+        String[] params = {String.valueOf(aluno.getId())};
+        getDataBase().update(DataBaseOpenHelper.Alunos.TABELA,getContentValues(aluno),where,params);
+    }
+
     private Aluno recuperaAluno(Cursor cursor) {
         Aluno aluno = new Aluno();
         aluno.setId(cursor.getLong(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ID)));
