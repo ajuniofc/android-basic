@@ -1,7 +1,9 @@
 package br.com.android.androidbasico.application.listaAlunos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -46,19 +48,45 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
         MenuItem deletar = menu.add(R.string.lista_menu_contexto_deletar);
-        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        deletar.setOnMenuItemClickListener(onMenuDeletarClickListener(aluno));
+
+        MenuItem site = menu.add(R.string.lista_menu_contexto_site);
+        site.setOnMenuItemClickListener(onMenuSiteClickListener(aluno));
+    }
+
+    private MenuItem.OnMenuItemClickListener onMenuSiteClickListener(final Aluno aluno) {
+        return new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+                Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+                String site = aluno.getSite();
+                if (!site.startsWith("https://")) {
+                    site = "https://" + site;
+                }
+                intentSite.setData(Uri.parse(site));
+                startActivity(intentSite);
+                return false;
+            }
+        };
+    }
+
+    @NonNull
+    private MenuItem.OnMenuItemClickListener onMenuDeletarClickListener(final Aluno aluno) {
+        return new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.deleta(aluno);
                 dao.close();
                 carregaLista();
                 return false;
             }
-        });
+        };
     }
 
     private void carregaLista(){
