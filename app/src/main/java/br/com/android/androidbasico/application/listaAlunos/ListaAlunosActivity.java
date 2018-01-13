@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
@@ -76,8 +77,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.lista_btn_adicionarId:
-                Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-                startActivity(intentFormulario);
+                goToFormulario();
                 break;
         }
     }
@@ -85,5 +85,18 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
+        goToFormulario(aluno);
+
+    }
+
+    private void goToFormulario(Aluno aluno) {
+        Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+        intentFormulario.putExtra(Constantes.ALUNO,aluno);
+        startActivity(intentFormulario);
+    }
+
+    private void goToFormulario() {
+        Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+        startActivity(intentFormulario);
     }
 }

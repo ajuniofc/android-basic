@@ -1,10 +1,12 @@
 package br.com.android.androidbasico.model;
 
+import java.io.Serializable;
+
 /**
  * Created by JHUNIIN on 12/01/2018.
  */
 
-public class Aluno {
+public class Aluno implements Serializable{
     private Long id;
     private String nome;
     private String endereco;
