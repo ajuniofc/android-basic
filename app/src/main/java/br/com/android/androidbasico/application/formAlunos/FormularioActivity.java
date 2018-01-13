@@ -1,14 +1,20 @@
 package br.com.android.androidbasico.application.formAlunos;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,8 +26,12 @@ import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
 public class FormularioActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final int CAMERA_CODE = 321;
     private FormHelper formHelper;
     private Button btnFoto;
+    private ImageView imgFoto;
+    private String caminhoFoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +43,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
             formHelper.preencherFormulario(aluno);
         }
 
+        imgFoto = (ImageView) findViewById(R.id.formulario_foto);
         btnFoto = (Button) findViewById(R.id.formulario_btn_foto);
         btnFoto.setOnClickListener(this);
     }
@@ -71,10 +82,26 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.formulario_btn_foto:
                 Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                String caminhoFoto = getExternalFilesDir(null) + "/"+ System.currentTimeMillis() +".jpg";
+                caminhoFoto = getExternalFilesDir(null) + "/"+ System.currentTimeMillis() +".jpg";
                 File arquivoFoto = new File(caminhoFoto);
                 intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arquivoFoto));
+                startActivityForResult(intentCamera, CAMERA_CODE);
                 break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case CAMERA_CODE:
+                    Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+                    Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+                    imgFoto.setImageBitmap(bitmapReduzido);
+                    imgFoto.setBackground(null);
+                    break;
+            }
         }
     }
 }

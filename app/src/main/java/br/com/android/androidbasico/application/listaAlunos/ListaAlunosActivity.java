@@ -15,9 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
@@ -27,7 +25,7 @@ import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
-    public static final int CAMERA_CODE = 123;
+    public static final int PERMISSION_CAMERA_CODE = 123;
     private Button mButaoAdicionar;
     private ListView listaAlunos;
     @Override
@@ -78,7 +76,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 if (ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE)
                         != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(ListaAlunosActivity.this,
-                            new String[]{Manifest.permission.CALL_PHONE}, CAMERA_CODE);
+                            new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_CAMERA_CODE);
                 }else {
                     Intent intentLigar = new Intent(Intent.ACTION_CALL);
                     intentLigar.setData(Uri.parse("tel:" + aluno.getTelefone()));
@@ -94,7 +92,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode){
-            case CAMERA_CODE:
+            case PERMISSION_CAMERA_CODE:
 
                 break;
         }
