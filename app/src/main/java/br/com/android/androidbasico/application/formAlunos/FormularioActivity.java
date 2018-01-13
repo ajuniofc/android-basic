@@ -1,5 +1,7 @@
 package br.com.android.androidbasico.application.formAlunos;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +17,9 @@ import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
-public class FormularioActivity extends AppCompatActivity {
+public class FormularioActivity extends AppCompatActivity implements View.OnClickListener {
     private FormHelper formHelper;
+    private Button btnFoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,9 @@ public class FormularioActivity extends AppCompatActivity {
         if(aluno != null){
             formHelper.preencherFormulario(aluno);
         }
+
+        btnFoto = (Button) findViewById(R.id.formulario_btn_foto);
+        btnFoto.setOnClickListener(this);
     }
 
     @Override
@@ -56,5 +62,14 @@ public class FormularioActivity extends AppCompatActivity {
             dao.insere(aluno);
         }
         dao.close();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.formulario_btn_foto:
+
+                break;
+        }
     }
 }
