@@ -93,7 +93,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_CODE:
                     Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
