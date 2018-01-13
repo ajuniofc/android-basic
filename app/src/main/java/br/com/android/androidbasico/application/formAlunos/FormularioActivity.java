@@ -24,6 +24,9 @@ public class FormularioActivity extends AppCompatActivity {
 
         formHelper = new FormHelper(this);
         Aluno aluno = (Aluno) getIntent().getSerializableExtra(Constantes.ALUNO);
+        if(aluno != null){
+            formHelper.preencherFormulario(aluno);
+        }
     }
 
     @Override
