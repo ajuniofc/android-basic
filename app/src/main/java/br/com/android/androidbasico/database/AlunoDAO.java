@@ -1,7 +1,10 @@
 package br.com.android.androidbasico.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import br.com.android.androidbasico.model.Aluno;
 
 /**
  * Created by JHUNIIN on 12/01/2018.
@@ -20,5 +23,19 @@ public class AlunoDAO {
             db = banco.getWritableDatabase();
         }
         return db;
+    }
+
+    public void insere(Aluno aluno){
+        db.insert(DataBaseOpenHelper.Alunos.TABELA,null,getContentValues(aluno));
+    }
+
+    private ContentValues getContentValues(Aluno aluno){
+        ContentValues dados = new ContentValues();
+        dados.put(DataBaseOpenHelper.Alunos.NOME, aluno.getNome());
+        dados.put(DataBaseOpenHelper.Alunos.ENDERECO, aluno.getEndereco());
+        dados.put(DataBaseOpenHelper.Alunos.TELEFONE, aluno.getTelefone());
+        dados.put(DataBaseOpenHelper.Alunos.SITE, aluno.getSite());
+        dados.put(DataBaseOpenHelper.Alunos.NOTA, aluno.getNota());
+        return dados;
     }
 }
