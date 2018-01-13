@@ -40,13 +40,21 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = formHelper.getAluno();
-                AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
-                dao.insere(aluno);
-                dao.close();
-                Toast.makeText(FormularioActivity.this,"Aluno "+aluno.getNome()+" Salvo",Toast.LENGTH_SHORT).show();
+                salva(aluno);
+                Toast.makeText(FormularioActivity.this,aluno.getNome()+" Salvo",Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void salva(Aluno aluno) {
+        AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
+        if (aluno.getId() != null){
+            dao.atualiza(aluno);
+        }else {
+            dao.insere(aluno);
+        }
+        dao.close();
     }
 }
