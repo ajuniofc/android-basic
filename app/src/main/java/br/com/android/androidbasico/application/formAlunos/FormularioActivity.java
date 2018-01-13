@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -32,6 +33,9 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = formHelper.getAluno();
+                AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
+                dao.insere(aluno);
+                dao.close();
                 Toast.makeText(FormularioActivity.this,"Aluno "+aluno.getNome()+" Salvo",Toast.LENGTH_SHORT).show();
                 finish();
                 break;

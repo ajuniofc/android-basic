@@ -26,7 +26,11 @@ public class AlunoDAO {
     }
 
     public void insere(Aluno aluno){
-        db.insert(DataBaseOpenHelper.Alunos.TABELA,null,getContentValues(aluno));
+        getDataBase().insert(DataBaseOpenHelper.Alunos.TABELA,null,getContentValues(aluno));
+    }
+
+    public void close(){
+        getDataBase().close();
     }
 
     private ContentValues getContentValues(Aluno aluno){
