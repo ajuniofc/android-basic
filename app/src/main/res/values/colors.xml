@@ -7,4 +7,5 @@
     <!-- Cores adicionadas -->
     <color name="cor_vermelha">#ff0000</color>
     <color name="cor_branca">#ffffff</color>
+    <color name="cor_fundo_foto">#00A8EC</color>
 </resources>
