@@ -24,6 +24,7 @@ import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.adapter.AlunosAdapter;
 import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
+import br.com.android.androidbasico.converter.AlunoConverter;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
@@ -62,6 +63,13 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         switch (item.getItemId()){
             case R.id.menu_lista_enviar:
                 Toast.makeText(this, R.string.lista_enviando_notas,Toast.LENGTH_SHORT).show();
+                AlunoDAO dao = new AlunoDAO(this);
+                List<Aluno> alunos = dao.buscarAlunos();
+                dao.close();
+
+                AlunoConverter converter = new AlunoConverter(alunos);
+                //converter.convertToJSON();
+                Toast.makeText(this, converter.convertToJSON(),Toast.LENGTH_SHORT).show();
                 break;
         }
 
