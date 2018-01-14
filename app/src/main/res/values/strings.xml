@@ -20,4 +20,9 @@
     <string name="formulario_hint_telefone">Telefone</string>
     <string name="formulario_hint_site">Site</string>
     <string name="formulario_salvar">Salvar</string>
+
+    <!-- Layout Lista de alunos -->
+    <string name="item_list_nome">Nome</string>
+    <string name="item_list_telefone">Telefone</string>
+
 </resources>
