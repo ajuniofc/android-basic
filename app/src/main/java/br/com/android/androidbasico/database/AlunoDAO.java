@@ -57,6 +57,16 @@ public class AlunoDAO {
         getDataBase().update(DataBaseOpenHelper.Alunos.TABELA,getContentValues(aluno),where,params);
     }
 
+    public boolean isAluno(String telefone){
+        String sql = "SELECT * from "+DataBaseOpenHelper.Alunos.TABELA+" WHERE "+
+                DataBaseOpenHelper.Alunos.TELEFONE+" = ?";
+        String[] params = new String[]{telefone};
+        Cursor cursor = getDataBase().rawQuery(sql, params);
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
+
     private Aluno recuperaAluno(Cursor cursor) {
         Aluno aluno = new Aluno();
         aluno.setId(cursor.getLong(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ID)));
