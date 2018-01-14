@@ -29,7 +29,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
     public static final int CAMERA_CODE = 321;
     private FormHelper formHelper;
     private Button btnFoto;
-    private ImageView imgFoto;
     private String caminhoFoto;
 
     @Override
@@ -43,7 +42,6 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
             formHelper.preencherFormulario(aluno);
         }
 
-        imgFoto = (ImageView) findViewById(R.id.formulario_foto);
         btnFoto = (Button) findViewById(R.id.formulario_btn_foto);
         btnFoto.setOnClickListener(this);
     }
@@ -96,10 +94,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_CODE:
-                    Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
-                    Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
-                    imgFoto.setImageBitmap(bitmapReduzido);
-                    imgFoto.setBackground(null);
+                   formHelper.carregaFoto(caminhoFoto);
                     break;
             }
         }
