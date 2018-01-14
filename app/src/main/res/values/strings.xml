@@ -14,6 +14,7 @@
     <string name="lista_menu_contexto_ligar">Ligar</string>
     <string name="lista_menu_contexto_mapa">Visualizar no mapa</string>
     <string name="lista_menu_enviar">Enviar Notas</string>
+    <string name="lista_enviando_notas">Enviando notas ...</string>
 
     <!-- Activity Formulario -->
     <string name="formulario_hint_nome">Nome</string>

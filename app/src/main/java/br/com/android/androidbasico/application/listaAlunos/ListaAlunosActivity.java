@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -54,6 +55,17 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     protected void onResume() {
         super.onResume();
         carregaLista();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_lista_enviar:
+                Toast.makeText(this, R.string.lista_enviando_notas,Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
