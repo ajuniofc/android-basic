@@ -65,11 +65,8 @@ public class AlunoDAO {
         aluno.setTelefone(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.TELEFONE)));
         aluno.setSite(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.SITE)));
         aluno.setNota(cursor.getDouble(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOTA)));
+        aluno.setCaminhoFoto(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.CAMINHO_FOTO)));
         return aluno;
-    }
-
-    public void close(){
-        getDataBase().close();
     }
 
     private ContentValues getContentValues(Aluno aluno){
@@ -79,6 +76,11 @@ public class AlunoDAO {
         dados.put(DataBaseOpenHelper.Alunos.TELEFONE, aluno.getTelefone());
         dados.put(DataBaseOpenHelper.Alunos.SITE, aluno.getSite());
         dados.put(DataBaseOpenHelper.Alunos.NOTA, aluno.getNota());
+        dados.put(DataBaseOpenHelper.Alunos.CAMINHO_FOTO, aluno.getCaminhoFoto());
         return dados;
+    }
+
+    public void close(){
+        getDataBase().close();
     }
 }
