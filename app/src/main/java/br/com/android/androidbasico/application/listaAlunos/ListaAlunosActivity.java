@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +42,12 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         mButaoAdicionar.setOnClickListener(this);
 
         registerForContextMenu(listaAlunos);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.lista_alunos_menu, menu);
+        return true;
     }
 
     @Override
