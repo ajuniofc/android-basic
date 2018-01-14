@@ -1,5 +1,6 @@
 package br.com.android.androidbasico.asynctasks;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -16,17 +17,23 @@ import br.com.android.androidbasico.servico.WebClient;
  * Created by JHUNIIN on 14/01/2018.
  */
 
-public class EnviarAlunosTask extends AsyncTask<Object, Object, String> {
+public class EnviarAlunosTask extends AsyncTask<Void, Void, String> {
     private Context context;
+    private ProgressDialog progressDialog;
 
     public EnviarAlunosTask(Context context) {
         this.context = context;
     }
 
     @Override
-    protected String doInBackground(Object[] objects) {
-        Toast.makeText(context, R.string.lista_enviando_notas,Toast.LENGTH_SHORT).show();
+    protected void onPreExecute() {
+        progressDialog = ProgressDialog.show(context,
+                context.getString(R.string.lista_aguarde),
+                context.getString(R.string.lista_enviando_notas),true,true);
+    }
 
+    @Override
+    protected String doInBackground(Void... params) {
         AlunoDAO dao = new AlunoDAO(context);
         List<Aluno> alunos = dao.buscarAlunos();
         dao.close();
@@ -40,6 +47,7 @@ public class EnviarAlunosTask extends AsyncTask<Object, Object, String> {
 
     @Override
     protected void onPostExecute(String resposta) {
+        progressDialog.dismiss();
         if (resposta != null){
             Toast.makeText(context, resposta,Toast.LENGTH_SHORT).show();
         }
