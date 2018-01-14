@@ -19,6 +19,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.adapter.AlunosAdapter;
 import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
 import br.com.android.androidbasico.database.AlunoDAO;
@@ -154,7 +155,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void carregaLista(){
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this,android.R.layout.simple_list_item_1, buscaAlunos());
+        AlunosAdapter adapter = new AlunosAdapter(this,buscaAlunos());
         listaAlunos.setAdapter(adapter);
     }
 
