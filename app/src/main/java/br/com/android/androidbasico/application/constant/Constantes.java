@@ -6,4 +6,5 @@ package br.com.android.androidbasico.application.constant;
 
 public class Constantes {
     public static final String ALUNO = "aluno";
+    public static final String PROVA = "prova";
 }

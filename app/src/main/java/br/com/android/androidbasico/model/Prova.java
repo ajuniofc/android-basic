@@ -1,12 +1,13 @@
 package br.com.android.androidbasico.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by JHUNIIN on 14/01/2018.
  */
 
-public class Prova {
+public class Prova implements Serializable{
     private String materia;
     private String data;
     private List<String> topicos;

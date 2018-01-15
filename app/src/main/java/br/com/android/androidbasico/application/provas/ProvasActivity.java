@@ -1,5 +1,6 @@
 package br.com.android.androidbasico.application.provas;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
+import br.com.android.androidbasico.application.constant.Constantes;
+import br.com.android.androidbasico.application.detalheProva.DetalhesProvaActivity;
 import br.com.android.androidbasico.model.Prova;
 
 public class ProvasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -42,5 +45,8 @@ public class ProvasActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Prova prova = (Prova) lista.getItemAtPosition(position);
         Toast.makeText(this,"Prova de "+prova.getMateria(),Toast.LENGTH_SHORT).show();
+        Intent intentDetalhesProvas = new Intent(this, DetalhesProvaActivity.class);
+        intentDetalhesProvas.putExtra(Constantes.PROVA, prova);
+        startActivity(intentDetalhesProvas);
     }
 }
