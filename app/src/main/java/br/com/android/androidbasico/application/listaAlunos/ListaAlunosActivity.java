@@ -24,6 +24,7 @@ import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.adapter.AlunosAdapter;
 import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
+import br.com.android.androidbasico.application.provas.ProvasActivity;
 import br.com.android.androidbasico.asynctasks.EnviarAlunosTask;
 import br.com.android.androidbasico.converter.AlunoConverter;
 import br.com.android.androidbasico.database.AlunoDAO;
@@ -68,6 +69,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 alunosTask.execute();
                 break;
             case R.id.menu_baixar_provas:
+                Intent intentProvas = new Intent(this, ProvasActivity.class);
+                startActivity(intentProvas);
                 break;
         }
 
