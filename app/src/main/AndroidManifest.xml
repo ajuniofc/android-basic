@@ -3,8 +3,9 @@
     package="br.com.android.androidbasico">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".application.listaAlunos.ListaAlunosActivity"
+        <activity
+            android:name=".application.listaAlunos.ListaAlunosActivity"
             android:label="@string/lista_alunos_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,14 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".application.formAlunos.FormularioActivity"
-            android:label="@string/formulario_activity"></activity>
+        <activity
+            android:name=".application.formAlunos.FormularioActivity"
+            android:label="@string/formulario_activity" />
 
         <receiver android:name=".receiver.SMSReceiver">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".application.provas.ProvasActivity"></activity>
     </application>
 
 </manifest>
