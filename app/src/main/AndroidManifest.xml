@@ -32,7 +32,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".application.provas.ProvasActivity"></activity>
+        <activity android:name=".application.provas.ProvasActivity" />
+        <activity android:name=".application.detalheProva.DetalhesProvaActivity"></activity>
     </application>
 
 </manifest>
