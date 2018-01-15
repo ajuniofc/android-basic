@@ -67,6 +67,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 EnviarAlunosTask alunosTask = new EnviarAlunosTask(this);
                 alunosTask.execute();
                 break;
+            case R.id.menu_baixar_provas:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
