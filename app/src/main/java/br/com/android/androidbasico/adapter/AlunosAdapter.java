@@ -68,6 +68,12 @@ public class AlunosAdapter extends BaseAdapter{
     private void showAluno(Aluno aluno, AlunoHolder holder) {
         holder.nome.setText(aluno.getNome());
         holder.telefone.setText(aluno.getTelefone());
+        if (holder.endereco != null){
+            holder.endereco.setText(aluno.getEndereco());
+        }
+        if (holder.site != null){
+            holder.site.setText(aluno.getSite());
+        }
         carregaImg(aluno, holder);
     }
 
