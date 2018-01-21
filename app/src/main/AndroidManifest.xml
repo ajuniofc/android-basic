@@ -33,7 +33,6 @@
         </receiver>
 
         <activity android:name=".application.provas.ProvasActivity" />
-        <activity android:name=".application.detalheProva.DetalhesProvaActivity"></activity>
     </application>
 
 </manifest>

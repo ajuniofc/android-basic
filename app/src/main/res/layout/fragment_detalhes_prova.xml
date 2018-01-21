@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="teste"
+                android:text="Materia"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/cor_branca"/>
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="teste"
+                android:text="data"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/cor_branca"

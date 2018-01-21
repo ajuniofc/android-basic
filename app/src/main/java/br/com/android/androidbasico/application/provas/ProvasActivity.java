@@ -1,52 +1,51 @@
 package br.com.android.androidbasico.application.provas;
 
-import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.List;
 
 import br.com.android.androidbasico.R;
-import br.com.android.androidbasico.application.constant.Constantes;
-import br.com.android.androidbasico.application.detalheProva.DetalhesProvaActivity;
 import br.com.android.androidbasico.model.Prova;
 
-public class ProvasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ProvasActivity extends AppCompatActivity {
 
-    private ListView lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provas);
 
-        List<String> topicosPort = Arrays.asList("Sujeito", "Objeto direto", "Objeto indireto");
-        Prova provaPortugues = new Prova("Portugues", "25/05/2016", topicosPort);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
 
-        List<String> topicosMat = Arrays.asList("Equacoes de segundo grau", "Trigonometria");
-        Prova provaMatematica = new Prova("Matematica", "27/05/2016", topicosMat);
+        transaction.replace(R.id.frame_principal, new ListaProvaFragment());
+        if (isModoPaisagem()) {
+            transaction.replace(R.id.frame_secundario, new DetalhesProvaFragment());
+        }
 
-        List<Prova> provas = Arrays.asList(provaPortugues, provaMatematica);
-
-        ArrayAdapter<Prova> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, provas);
-        lista = (ListView) findViewById(R.id.provas_lista);
-        lista.setAdapter(adapter);
-
-        lista.setOnItemClickListener(this);
+        transaction.commit();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Prova prova = (Prova) lista.getItemAtPosition(position);
-        Toast.makeText(this,"Prova de "+prova.getMateria(),Toast.LENGTH_SHORT).show();
-        Intent intentDetalhesProvas = new Intent(this, DetalhesProvaActivity.class);
-        intentDetalhesProvas.putExtra(Constantes.PROVA, prova);
-        startActivity(intentDetalhesProvas);
+    private boolean isModoPaisagem() {
+        return getResources().getBoolean(R.bool.modoPaisagem);
+    }
+
+    public void selecionaProva(Prova prova) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (isModoPaisagem()) {
+            DetalhesProvaFragment detalhesProvaFragmente = (DetalhesProvaFragment) manager.findFragmentById(R.id.frame_secundario);
+            detalhesProvaFragmente.populoProva(prova);
+        }else {
+            DetalhesProvaFragment fragment = new DetalhesProvaFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Prova", prova);
+            fragment.setArguments(bundle);
+            transaction.replace(R.id.frame_principal, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }
