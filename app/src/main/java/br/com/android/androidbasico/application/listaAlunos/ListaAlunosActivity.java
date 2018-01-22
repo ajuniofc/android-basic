@@ -13,10 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,12 +22,11 @@ import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.adapter.AlunosAdapter;
 import br.com.android.androidbasico.application.constant.Constantes;
 import br.com.android.androidbasico.application.formAlunos.FormularioActivity;
+import br.com.android.androidbasico.application.mapa.MapaActivity;
 import br.com.android.androidbasico.application.provas.ProvasActivity;
 import br.com.android.androidbasico.asynctasks.EnviarAlunosTask;
-import br.com.android.androidbasico.converter.AlunoConverter;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
-import br.com.android.androidbasico.servico.WebClient;
 
 public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
     public static final int PERMISSION_CAMERA_CODE = 123;
@@ -71,6 +68,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
             case R.id.menu_baixar_provas:
                 Intent intentProvas = new Intent(this, ProvasActivity.class);
                 startActivity(intentProvas);
+                break;
+            case R.id.menu_mapa:
+                Intent intentMapa = new Intent(this, MapaActivity.class);
+                startActivity(intentMapa);
                 break;
         }
 
