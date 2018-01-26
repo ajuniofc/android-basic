@@ -18,6 +18,9 @@ public class AlunoConverter {
         this.alunos = alunos;
     }
 
+    public AlunoConverter() {
+    }
+
     public String convertToJSON(){
         JSONStringer js = new JSONStringer();
         try {
@@ -39,4 +42,22 @@ public class AlunoConverter {
         return alunos;
     }
 
+    public String convertToCompleteJSON(Aluno aluno) {
+        JSONStringer js = new JSONStringer();
+        try {
+            js.object()
+                .key("id").value(aluno.getId())
+                .key("nome").value(aluno.getNome())
+                .key("endereco").value(aluno.getEndereco())
+                .key("telefone").value(aluno.getTelefone())
+                .key("site").value(aluno.getSite())
+                .key("nota").value(aluno.getNota())
+                .key("caminhoFoto").value(aluno.getCaminhoFoto())
+                .endObject();
+            return js.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

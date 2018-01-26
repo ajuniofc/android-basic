@@ -22,6 +22,7 @@ import java.io.Serializable;
 
 import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.application.constant.Constantes;
+import br.com.android.androidbasico.asynctasks.InsereAlunoTask;
 import br.com.android.androidbasico.database.AlunoDAO;
 import br.com.android.androidbasico.model.Aluno;
 
@@ -58,6 +59,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
             case R.id.menu_formulario_ok:
                 Aluno aluno = formHelper.getAluno();
                 salva(aluno);
+                new InsereAlunoTask(aluno).execute();
                 Toast.makeText(FormularioActivity.this,aluno.getNome()+" Salvo",Toast.LENGTH_SHORT).show();
                 finish();
                 break;

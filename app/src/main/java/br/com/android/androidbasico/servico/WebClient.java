@@ -1,5 +1,7 @@
 package br.com.android.androidbasico.servico;
 
+import android.support.annotation.Nullable;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.HttpURLConnection;
@@ -12,13 +14,23 @@ import java.util.Scanner;
  */
 
 public class WebClient {
-    private static final String URL = "https://www.caelum.com.br/mobile";
 
     public String post(String json){
+        String endereco = "https://www.caelum.com.br/mobile";;
+        return realizaRequisicao(json, endereco);
+    }
+
+    public void insere(String json) {
+        String endereco = "http://192.168.0.11:8080/api/aluno";
+        realizaRequisicao(json, endereco);
+    }
+
+    @Nullable
+    private String realizaRequisicao(String json, String endereco) {
         URL url;
         HttpURLConnection connection;
         try {
-            url = new URL(URL);
+            url = new URL(endereco);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Content-type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
@@ -39,4 +51,6 @@ public class WebClient {
 
         return null;
     }
+
+
 }
