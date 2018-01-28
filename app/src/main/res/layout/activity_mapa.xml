@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frame_mapa"
-    tools:context="br.com.android.androidbasico.application.mapa.MapaActivity">
+    tools:context=".agenda.application.mapa.MapaActivity">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapa_mapa"
