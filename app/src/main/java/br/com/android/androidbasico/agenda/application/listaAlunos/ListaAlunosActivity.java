@@ -49,6 +49,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         mButaoAdicionar = (Button) findViewById(R.id.lista_btn_adicionarId);
         mButaoAdicionar.setOnClickListener(this);
 
+        sincronizaAlunos();
         registerForContextMenu(listaAlunos);
     }
 
@@ -61,6 +62,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     @Override
     protected void onResume() {
         super.onResume();
+        carregaLista();
+    }
+
+    private void sincronizaAlunos() {
         Call<AlunoDTO> call = new RetrofitBuilder().getAlunoService().lista();
         call.enqueue(new Callback<AlunoDTO>() {
             @Override
@@ -76,6 +81,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onFailure(Call<AlunoDTO> call, Throwable t) {
                 Log.e("onFailure: ", t.getMessage());
+                carregaLista();
             }
         });
     }
