@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -202,13 +203,31 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         return new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
-                dao.deleta(aluno);
-                dao.close();
-                carregaLista();
+                Call<Void> call = new RetrofitBuilder().getAlunoService().deleta(aluno.getId());
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()){
+                            deletaAlunodoBanco(aluno);
+                            carregaLista();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(ListaAlunosActivity.this,"Não foi possivel remover o aluno",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return false;
             }
         };
+    }
+
+    private void deletaAlunodoBanco(Aluno aluno) {
+        AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
+        dao.deleta(aluno);
+        dao.close();
     }
 
     private void carregaLista(){
