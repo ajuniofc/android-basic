@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -35,10 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener{
+public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     public static final int PERMISSION_CAMERA_CODE = 123;
     private Button mButaoAdicionar;
     private ListView listaAlunos;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,9 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
         mButaoAdicionar = (Button) findViewById(R.id.lista_btn_adicionarId);
         mButaoAdicionar.setOnClickListener(this);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.lista_swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         sincronizaAlunos();
         registerForContextMenu(listaAlunos);
@@ -75,8 +80,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.sincroniza(alunoDTO.getAlunos());
                 dao.close();
-
                 carregaLista();
+                if (swipeRefreshLayout.isRefreshing()){
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
 
             @Override
@@ -271,5 +278,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     private void goToFormulario() {
         Intent intentFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
         startActivity(intentFormulario);
+    }
+
+    @Override
+    public void onRefresh() {
+        sincronizaAlunos();
     }
 }
