@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
@@ -88,7 +89,9 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
             @Override
             public void onFailure(Call<AlunoDTO> call, Throwable t) {
-                Log.e("onFailure: ", t.getMessage());
+                if (t instanceof SocketTimeoutException) {
+                    Log.e("onFailure: ", "Tempo de requisição expirou");
+                }
                 carregaLista();
             }
         });

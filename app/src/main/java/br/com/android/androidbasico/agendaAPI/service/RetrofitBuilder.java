@@ -1,6 +1,7 @@
 package br.com.android.androidbasico.agendaAPI.service;
 
 import br.com.android.androidbasico.agendaAPI.api.AlunosAPI;
+import br.com.android.androidbasico.agendaAPI.api.DispositivoAPI;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -25,6 +26,10 @@ public class RetrofitBuilder {
         return retrofit.create(AlunosAPI.class);
     }
 
+    public DispositivoAPI getDispositivoService() {
+        return retrofit.create(DispositivoAPI.class);
+    }
+
     private OkHttpClient.Builder getClient(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -32,4 +37,5 @@ public class RetrofitBuilder {
         client.addInterceptor(interceptor);
         return client;
     }
+
 }
