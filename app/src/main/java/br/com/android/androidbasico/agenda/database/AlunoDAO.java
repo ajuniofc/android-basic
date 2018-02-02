@@ -44,8 +44,12 @@ public class AlunoDAO {
     public void sincroniza(List<Aluno> alunos){
         for (Aluno aluno : alunos) {
             if (existe(aluno)){
-                atualiza(aluno);
-            }else {
+                if (aluno.estaDesativado()){
+                    deleta(aluno);
+                }else {
+                    atualiza(aluno);
+                }
+            }else if(!aluno.estaDesativado()){
                 insere(aluno);
             }
         }
