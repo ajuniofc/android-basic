@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.net.SocketTimeoutException;
 import java.util.List;
 
@@ -33,6 +37,7 @@ import br.com.android.androidbasico.agenda.database.AlunoDAO;
 import br.com.android.androidbasico.agenda.model.Aluno;
 import br.com.android.androidbasico.agendaAPI.dto.AlunoDTO;
 import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
+import br.com.android.androidbasico.eventBus.AtualizaListaAlunosEvent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +66,12 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.lista_alunos_menu, menu);
         return true;
@@ -69,6 +80,11 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     @Override
     protected void onResume() {
         super.onResume();
+        carregaLista();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void atualizaListaAlunoEvent(AtualizaListaAlunosEvent event){
         carregaLista();
     }
 
@@ -286,5 +302,11 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onRefresh() {
         sincronizaAlunos();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }
