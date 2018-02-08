@@ -98,9 +98,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 dao.sincroniza(alunoDTO.getAlunos());
                 dao.close();
                 carregaLista();
-                if (swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+                finalizaRefreshing();
             }
 
             @Override
@@ -108,9 +106,16 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
                 if (t instanceof SocketTimeoutException) {
                     Log.e("onFailure: ", "Tempo de requisição expirou");
                 }
+                finalizaRefreshing();
                 carregaLista();
             }
         });
+    }
+
+    private void finalizaRefreshing() {
+        if (swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
