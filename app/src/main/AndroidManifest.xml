@@ -15,14 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".agenda.application.listaAlunos.ListaAlunosActivity"
-            android:label="@string/lista_alunos_activity">
+        <activity android:name=".agenda.application.splashScreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".agenda.application.listaAlunos.ListaAlunosActivity"
+            android:label="@string/lista_alunos_activity">
         </activity>
         <activity
             android:name=".agenda.application.formAlunos.FormularioActivity"
@@ -60,7 +62,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".agenda.application.config.ConfiguracaoActivity"></activity>
+        <activity android:name=".agenda.application.config.ConfiguracaoActivity" />
     </application>
 
 </manifest>

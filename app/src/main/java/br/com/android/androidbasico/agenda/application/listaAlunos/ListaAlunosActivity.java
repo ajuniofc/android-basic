@@ -97,10 +97,13 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onResponse(Call<AlunoDTO> call, Response<AlunoDTO> response) {
                 AlunoDTO alunoDTO = response.body();
-                AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
-                dao.sincroniza(alunoDTO.getAlunos());
-                dao.close();
-                carregaLista();
+                if (alunoDTO != null) {
+                    AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
+                    dao.sincroniza(alunoDTO.getAlunos());
+                    dao.close();
+                }
+                    carregaLista();
+
                 finalizaRefreshing();
             }
 
