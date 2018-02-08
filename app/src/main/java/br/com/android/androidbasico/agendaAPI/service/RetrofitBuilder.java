@@ -14,9 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitBuilder {
     private final Retrofit retrofit;
 
-    public RetrofitBuilder() {
+    public RetrofitBuilder(String urlBase) {
+
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.11:8080/api/")
+                .baseUrl(urlBase)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(getClient().build())
                 .build();

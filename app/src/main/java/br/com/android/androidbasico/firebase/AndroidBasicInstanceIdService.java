@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import br.com.android.androidbasico.agenda.application.preferences.UserPreferences;
 import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +32,8 @@ public class AndroidBasicInstanceIdService extends FirebaseInstanceIdService imp
 
     private void enviaTokenParaServidor(String token) {
         this.token = token;
-        Call<Void> call = new RetrofitBuilder().getDispositivoService().enviaToken(token);
+        String urlBase = new UserPreferences(this).getUrlBase();
+        Call<Void> call = new RetrofitBuilder(urlBase).getDispositivoService().enviaToken(token);
         call.enqueue(this);
     }
 

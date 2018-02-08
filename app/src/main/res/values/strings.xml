@@ -3,7 +3,7 @@
     <string name="app_name">Agenda</string>
 
     <!-- Titulos de cada Activity -->
-    <string name="lista_alunos_activity">Lista de Alunos</string>
+    <string name="lista_alunos_activity">Alunos</string>
     <string name="formulario_activity">Formulário</string>
 
     <!-- Activity Lista -->
@@ -28,8 +28,8 @@
     <string name="item_list_nome">Nome</string>
     <string name="item_list_telefone">Telefone</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_maps">Map</string>
+    <!-- Activity Configuracao -->
+    <string name="configuracao_url_base">URL base</string>
+    <string name="configuracao_hint_url_base">"http://192.168.25.136:8080/api/"</string>
 
 </resources>

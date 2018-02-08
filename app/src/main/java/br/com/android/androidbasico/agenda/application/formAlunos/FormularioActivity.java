@@ -19,6 +19,7 @@ import java.io.File;
 
 import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.agenda.application.constant.Constantes;
+import br.com.android.androidbasico.agenda.application.preferences.UserPreferences;
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
 import br.com.android.androidbasico.agenda.model.Aluno;
 import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
@@ -60,7 +61,8 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
             case R.id.menu_formulario_ok:
                 Aluno aluno = formHelper.getAluno();
                 salva(aluno);
-                Call<Void> call = new RetrofitBuilder().getAlunoService().insere(aluno);
+                String urlBase = new UserPreferences(FormularioActivity.this).getUrlBase();
+                Call<Void> call = new RetrofitBuilder(urlBase).getAlunoService().insere(aluno);
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

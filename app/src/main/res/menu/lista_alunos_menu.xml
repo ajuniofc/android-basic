@@ -18,4 +18,9 @@
         android:title="Visualizar no Mapa"
         android:icon="@drawable/ic_mapa"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_configuracao"
+        android:title="Configuração"
+        app:showAsAction="never"/>
 </menu>

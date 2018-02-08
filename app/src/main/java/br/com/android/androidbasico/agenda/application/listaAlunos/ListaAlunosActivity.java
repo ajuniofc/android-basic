@@ -28,9 +28,11 @@ import java.util.List;
 
 import br.com.android.androidbasico.R;
 import br.com.android.androidbasico.agenda.adapter.AlunosAdapter;
+import br.com.android.androidbasico.agenda.application.config.ConfiguracaoActivity;
 import br.com.android.androidbasico.agenda.application.constant.Constantes;
 import br.com.android.androidbasico.agenda.application.formAlunos.FormularioActivity;
 import br.com.android.androidbasico.agenda.application.mapa.MapaActivity;
+import br.com.android.androidbasico.agenda.application.preferences.UserPreferences;
 import br.com.android.androidbasico.agenda.application.provas.ProvasActivity;
 import br.com.android.androidbasico.agenda.asynctasks.EnviarAlunosTask;
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
@@ -89,7 +91,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void sincronizaAlunos() {
-        Call<AlunoDTO> call = new RetrofitBuilder().getAlunoService().lista();
+        String urlBase = new UserPreferences(ListaAlunosActivity.this).getUrlBase();
+        Call<AlunoDTO> call = new RetrofitBuilder(urlBase).getAlunoService().lista();
         call.enqueue(new Callback<AlunoDTO>() {
             @Override
             public void onResponse(Call<AlunoDTO> call, Response<AlunoDTO> response) {
@@ -132,6 +135,9 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
             case R.id.menu_mapa:
                 Intent intentMapa = new Intent(this, MapaActivity.class);
                 startActivity(intentMapa);
+                break;
+            case R.id.menu_configuracao:
+                startActivity(new Intent(this, ConfiguracaoActivity.class));
                 break;
         }
 
@@ -234,7 +240,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         return new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Call<Void> call = new RetrofitBuilder().getAlunoService().deleta(aluno.getId());
+                String urlBase = new UserPreferences(ListaAlunosActivity.this).getUrlBase();
+                Call<Void> call = new RetrofitBuilder(urlBase).getAlunoService().deleta(aluno.getId());
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
