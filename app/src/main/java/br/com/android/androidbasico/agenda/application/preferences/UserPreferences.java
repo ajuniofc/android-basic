@@ -10,12 +10,13 @@ import android.content.SharedPreferences;
 public class UserPreferences {
     private static final String USER_PREFERENCES = "agenda.application.preferences.UserPreferences";
     private static final String URL_BASE = "URL_BASE";
+    public static final String VERSAO_DOS_DADOS = "VERSAO_DOS_DADOS";
     private Context context;
     private SharedPreferences preferences;
 
     public UserPreferences(Context context) {
         this.context = context;
-        this.preferences = this.context.getSharedPreferences(USER_PREFERENCES, Context.MODE_PRIVATE);
+        this.preferences = context.getSharedPreferences(USER_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     public void saveURLBase(String urlBase) {
@@ -26,6 +27,18 @@ public class UserPreferences {
 
     public String getUrlBase(){
         return getPreferences().getString(URL_BASE, null);
+    }
+
+    public void saveVersao(String versao) {
+        getEditor().putString(VERSAO_DOS_DADOS, versao).commit();
+    }
+
+    public String getVersao(){
+        return getPreferences().getString(VERSAO_DOS_DADOS, null);
+    }
+
+    public boolean temVersao(){
+        return getVersao() != null;
     }
 
     private SharedPreferences.Editor getEditor(){

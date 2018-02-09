@@ -23,7 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 import br.com.android.androidbasico.R;
@@ -37,7 +36,7 @@ import br.com.android.androidbasico.agenda.application.provas.ProvasActivity;
 import br.com.android.androidbasico.agenda.asynctasks.EnviarAlunosTask;
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
 import br.com.android.androidbasico.agenda.model.Aluno;
-import br.com.android.androidbasico.agendaAPI.dto.AlunoDTO;
+import br.com.android.androidbasico.agenda.sinc.AlunoSync;
 import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
 import br.com.android.androidbasico.eventBus.AtualizaListaAlunosEvent;
 import retrofit2.Call;
@@ -46,6 +45,7 @@ import retrofit2.Response;
 
 public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     public static final int PERMISSION_CAMERA_CODE = 123;
+    private AlunoSync alunoSync;
     private Button mButaoAdicionar;
     private ListView listaAlunos;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -63,7 +63,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.lista_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        sincronizaAlunos();
+        alunoSync = new AlunoSync(this);
+        alunoSync.sincronizaAlunos();
         registerForContextMenu(listaAlunos);
     }
 
@@ -87,35 +88,8 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void atualizaListaAlunoEvent(AtualizaListaAlunosEvent event){
+        finalizaRefreshing();
         carregaLista();
-    }
-
-    private void sincronizaAlunos() {
-        String urlBase = new UserPreferences(ListaAlunosActivity.this).getUrlBase();
-        Call<AlunoDTO> call = new RetrofitBuilder(urlBase).getAlunoService().lista();
-        call.enqueue(new Callback<AlunoDTO>() {
-            @Override
-            public void onResponse(Call<AlunoDTO> call, Response<AlunoDTO> response) {
-                AlunoDTO alunoDTO = response.body();
-                if (alunoDTO != null) {
-                    AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
-                    dao.sincroniza(alunoDTO.getAlunos());
-                    dao.close();
-                }
-                    carregaLista();
-
-                finalizaRefreshing();
-            }
-
-            @Override
-            public void onFailure(Call<AlunoDTO> call, Throwable t) {
-                if (t instanceof SocketTimeoutException) {
-                    Log.e("onFailure: ", "Tempo de requisição expirou");
-                }
-                finalizaRefreshing();
-                carregaLista();
-            }
-        });
     }
 
     private void finalizaRefreshing() {
@@ -316,7 +290,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onRefresh() {
-        sincronizaAlunos();
+        alunoSync.sincronizaAlunos();
     }
 
     @Override
