@@ -38,7 +38,6 @@ public class AlunoSync {
         }else {
             buscaTodos();
         }
-        sincronizaAlunosInternos();
     }
 
     private void buscaNovos() {
@@ -72,6 +71,7 @@ public class AlunoSync {
                     dao.close();
                 }
                 atualizaLista();
+                sincronizaAlunosInternos();
             }
 
             @Override
@@ -84,7 +84,7 @@ public class AlunoSync {
         };
     }
 
-    public void sincronizaAlunosInternos(){
+    private void sincronizaAlunosInternos(){
         final AlunoDAO dao = new AlunoDAO(context);
         List<Aluno> alunos = dao.buscaAlunosNaoSincronizados();
         Call<AlunoDTO> call = new RetrofitBuilder(preferences.getUrlBase()).getAlunoService().atualiza(alunos);
