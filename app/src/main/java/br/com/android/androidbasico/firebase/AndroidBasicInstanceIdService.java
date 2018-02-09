@@ -16,6 +16,7 @@ import retrofit2.Response;
  */
 
 public class AndroidBasicInstanceIdService extends FirebaseInstanceIdService implements Callback<Void> {
+    private String URL = "http://192.168.0.11:8080/api/";
     private String token;
 
     @Override
@@ -32,8 +33,7 @@ public class AndroidBasicInstanceIdService extends FirebaseInstanceIdService imp
 
     private void enviaTokenParaServidor(String token) {
         this.token = token;
-        String urlBase = new UserPreferences(this).getUrlBase();
-        Call<Void> call = new RetrofitBuilder(urlBase).getDispositivoService().enviaToken(token);
+        Call<Void> call = new RetrofitBuilder(URL).getDispositivoService().enviaToken(token);
         call.enqueue(this);
     }
 
