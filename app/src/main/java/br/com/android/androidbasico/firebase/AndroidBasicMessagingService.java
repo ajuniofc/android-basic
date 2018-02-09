@@ -12,6 +12,7 @@ import java.util.Map;
 
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
 import br.com.android.androidbasico.agenda.model.Aluno;
+import br.com.android.androidbasico.agenda.sinc.AlunoSync;
 import br.com.android.androidbasico.agendaAPI.dto.AlunoDTO;
 import br.com.android.androidbasico.eventBus.AtualizaListaAlunosEvent;
 
@@ -38,9 +39,7 @@ public class AndroidBasicMessagingService extends FirebaseMessagingService {
             Gson gson = new Gson();
             AlunoDTO alunoDTO = gson.fromJson(json, AlunoDTO.class);
             if (alunoDTO != null){
-                AlunoDAO dao = new AlunoDAO(this);
-                dao.sincroniza(alunoDTO.getAlunos());
-                dao.close();
+                new AlunoSync(AndroidBasicMessagingService.this).sincroniza(alunoDTO);
                 EventBus.getDefault().post(new AtualizaListaAlunosEvent());
             }
         }
