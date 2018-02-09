@@ -66,7 +66,8 @@ public class AlunoDAO {
     }
 
     public List<Aluno> buscarAlunos() {
-        String sql = "SELECT * FROM "+DataBaseOpenHelper.Alunos.TABELA;
+        String sql = "SELECT * FROM "+DataBaseOpenHelper.Alunos.TABELA+" WHERE "+
+                DataBaseOpenHelper.Alunos.DESATIVADO + " = 0";
         Cursor cursor = getDataBase().rawQuery(sql, null);
         return recuperaAlunos(cursor);
     }
@@ -74,7 +75,12 @@ public class AlunoDAO {
     public void deleta(Aluno aluno) {
         String where = DataBaseOpenHelper.Alunos.ID+" = ?";
         String[] params = {String.valueOf(aluno.getId())};
-        getDataBase().delete(DataBaseOpenHelper.Alunos.TABELA,where,params);
+        if (aluno.estaDesativado()) {
+            getDataBase().delete(DataBaseOpenHelper.Alunos.TABELA, where, params);
+        }else {
+            aluno.desativa();
+            atualiza(aluno);
+        }
     }
 
     public void atualiza(Aluno aluno) {
@@ -128,6 +134,7 @@ public class AlunoDAO {
         aluno.setNota(cursor.getDouble(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOTA)));
         aluno.setCaminhoFoto(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.CAMINHO_FOTO)));
         aluno.setSincronizado(cursor.getInt(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.SINCRONIZADO)));
+        aluno.setDesativado(cursor.getInt(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.DESATIVADO)));
         return aluno;
     }
 
@@ -141,6 +148,7 @@ public class AlunoDAO {
         dados.put(DataBaseOpenHelper.Alunos.NOTA, aluno.getNota());
         dados.put(DataBaseOpenHelper.Alunos.CAMINHO_FOTO, aluno.getCaminhoFoto());
         dados.put(DataBaseOpenHelper.Alunos.SINCRONIZADO, aluno.getSincronizado());
+        dados.put(DataBaseOpenHelper.Alunos.DESATIVADO, aluno.getDesativado());
         return dados;
     }
 

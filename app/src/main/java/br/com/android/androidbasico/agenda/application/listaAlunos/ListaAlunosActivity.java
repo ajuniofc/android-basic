@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,17 +30,12 @@ import br.com.android.androidbasico.agenda.application.config.ConfiguracaoActivi
 import br.com.android.androidbasico.agenda.application.constant.Constantes;
 import br.com.android.androidbasico.agenda.application.formAlunos.FormularioActivity;
 import br.com.android.androidbasico.agenda.application.mapa.MapaActivity;
-import br.com.android.androidbasico.agenda.application.preferences.UserPreferences;
 import br.com.android.androidbasico.agenda.application.provas.ProvasActivity;
 import br.com.android.androidbasico.agenda.asynctasks.EnviarAlunosTask;
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
 import br.com.android.androidbasico.agenda.model.Aluno;
 import br.com.android.androidbasico.agenda.sinc.AlunoSync;
-import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
 import br.com.android.androidbasico.eventBus.AtualizaListaAlunosEvent;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ListaAlunosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     public static final int PERMISSION_CAMERA_CODE = 123;
@@ -217,23 +211,10 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         return new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                String urlBase = new UserPreferences(ListaAlunosActivity.this).getUrlBase();
-                Call<Void> call = new RetrofitBuilder(urlBase).getAlunoService().deleta(aluno.getId());
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()){
-                            deletaAlunodoBanco(aluno);
-                            carregaLista();
-                        }
-                    }
+                deletaAlunodoBanco(aluno);
+                carregaLista();
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(ListaAlunosActivity.this,"Não foi possivel remover o aluno",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                alunoSync.deleta(aluno);
                 return false;
             }
         };
