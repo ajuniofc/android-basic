@@ -7,10 +7,12 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 
 import java.net.SocketTimeoutException;
+import java.util.List;
 
 import br.com.android.androidbasico.agenda.application.listaAlunos.ListaAlunosActivity;
 import br.com.android.androidbasico.agenda.application.preferences.UserPreferences;
 import br.com.android.androidbasico.agenda.database.AlunoDAO;
+import br.com.android.androidbasico.agenda.model.Aluno;
 import br.com.android.androidbasico.agendaAPI.dto.AlunoDTO;
 import br.com.android.androidbasico.agendaAPI.service.RetrofitBuilder;
 import br.com.android.androidbasico.eventBus.AtualizaListaAlunosEvent;
@@ -35,6 +37,7 @@ public class AlunoSync {
         }else {
             buscaTodos();
         }
+        sincronizaAlunosInternos();
     }
 
     private void buscaNovos() {
@@ -78,6 +81,25 @@ public class AlunoSync {
                 atualizaLista();
             }
         };
+    }
+
+    public void sincronizaAlunosInternos(){
+        final AlunoDAO dao = new AlunoDAO(context);
+        List<Aluno> alunos = dao.buscaAlunosNaoSincronizados();
+        Call<AlunoDTO> call = new RetrofitBuilder(preferences.getUrlBase()).getAlunoService().atualiza(alunos);
+        call.enqueue(new Callback<AlunoDTO>() {
+            @Override
+            public void onResponse(Call<AlunoDTO> call, Response<AlunoDTO> response) {
+                AlunoDTO alunoDTO = response.body();
+                dao.sincroniza(alunoDTO.getAlunos());
+                dao.close();
+            }
+
+            @Override
+            public void onFailure(Call<AlunoDTO> call, Throwable t) {
+
+            }
+        });
     }
 
     private void atualizaLista() {

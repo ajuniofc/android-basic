@@ -43,6 +43,7 @@ public class AlunoDAO {
 
     public void sincroniza(List<Aluno> alunos){
         for (Aluno aluno : alunos) {
+            aluno.sincroniza();
             if (existe(aluno)){
                 if (aluno.estaDesativado()){
                     deleta(aluno);
@@ -65,15 +66,9 @@ public class AlunoDAO {
     }
 
     public List<Aluno> buscarAlunos() {
-        List<Aluno> list = new ArrayList<>();
         String sql = "SELECT * FROM "+DataBaseOpenHelper.Alunos.TABELA;
         Cursor cursor = getDataBase().rawQuery(sql, null);
-        while (cursor.moveToNext()) {
-            Aluno aluno = recuperaAluno(cursor);
-            list.add(aluno);
-        }
-        cursor.close();
-        return list;
+        return recuperaAlunos(cursor);
     }
 
     public void deleta(Aluno aluno) {
@@ -106,6 +101,23 @@ public class AlunoDAO {
         return count > 0;
     }
 
+    public List<Aluno> buscaAlunosNaoSincronizados(){
+        String sql = "SELECT * FROM "+DataBaseOpenHelper.Alunos.TABELA+" WHERE "+
+                DataBaseOpenHelper.Alunos.SINCRONIZADO+" = 0";
+        Cursor cursor = getDataBase().rawQuery(sql, null);
+        return recuperaAlunos(cursor);
+    }
+
+    private List<Aluno> recuperaAlunos(Cursor cursor){
+        List<Aluno> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Aluno aluno = recuperaAluno(cursor);
+            list.add(aluno);
+        }
+        cursor.close();
+        return list;
+    }
+
     private Aluno recuperaAluno(Cursor cursor) {
         Aluno aluno = new Aluno();
         aluno.setId(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.ID)));
@@ -115,6 +127,7 @@ public class AlunoDAO {
         aluno.setSite(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.SITE)));
         aluno.setNota(cursor.getDouble(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.NOTA)));
         aluno.setCaminhoFoto(cursor.getString(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.CAMINHO_FOTO)));
+        aluno.setSincronizado(cursor.getInt(cursor.getColumnIndex(DataBaseOpenHelper.Alunos.SINCRONIZADO)));
         return aluno;
     }
 
@@ -127,6 +140,7 @@ public class AlunoDAO {
         dados.put(DataBaseOpenHelper.Alunos.SITE, aluno.getSite());
         dados.put(DataBaseOpenHelper.Alunos.NOTA, aluno.getNota());
         dados.put(DataBaseOpenHelper.Alunos.CAMINHO_FOTO, aluno.getCaminhoFoto());
+        dados.put(DataBaseOpenHelper.Alunos.SINCRONIZADO, aluno.getSincronizado());
         return dados;
     }
 

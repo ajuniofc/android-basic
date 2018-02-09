@@ -17,7 +17,7 @@ import br.com.android.androidbasico.agenda.model.Aluno;
 
 public class DataBaseOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE = "agenda.db";
-    private static final int VERSION = 5;
+    private static final int VERSION = 6;
 
     public DataBaseOpenHelper(Context context) {
         super(context, DATABASE, null, VERSION);
@@ -43,6 +43,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
                 DataBaseHelper.updateAlunosWithUUID(db, Alunos.TABELA, Alunos.ID);
             case 4:
                 DataBaseHelper.updateAlunosWithUUID(db, Alunos.TABELA, Alunos.ID);
+            case 5:
+                DataBaseHelper.alterTableAddColumn(db,Alunos.TABELA,Alunos.SINCRONIZADO, "DEFAULT 0");
         }
     }
 
@@ -55,6 +57,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
         hashMap.put(Alunos.SITE,"TEXT");
         hashMap.put(Alunos.NOTA,"REAL");
         hashMap.put(Alunos.CAMINHO_FOTO,"TEXT");
+        hashMap.put(Alunos.SINCRONIZADO,"INT DEFAULT 0");
 
         return hashMap;
     }
@@ -68,9 +71,10 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
         public static final String SITE = "site";
         public static final String NOTA = "nota";
         public static final String CAMINHO_FOTO = "caminho_foto";
+        public static final String SINCRONIZADO = "sincronizado";
 
         public static final String[] COLUNAS = new String[]{
-                ID, NOME, ENDERECO, TELEFONE, SITE, NOTA, CAMINHO_FOTO
+                ID, NOME, ENDERECO, TELEFONE, SITE, NOTA, CAMINHO_FOTO, SINCRONIZADO
         };
     }
 }

@@ -255,7 +255,7 @@ public class ListaAlunosActivity extends AppCompatActivity implements AdapterVie
         List<Aluno> alunos = dao.buscarAlunos();
         for (Aluno aluno :
                 alunos) {
-            Log.i("id do aluno", String.valueOf(aluno.getId()));
+            Log.i("aluno sincronizado", String.valueOf(aluno.getSincronizado()));
         }
         dao.close();
         return alunos;

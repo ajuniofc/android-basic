@@ -60,6 +60,7 @@ public class FormularioActivity extends AppCompatActivity implements View.OnClic
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = formHelper.getAluno();
+                aluno.desincroniza();
                 salva(aluno);
                 String urlBase = new UserPreferences(FormularioActivity.this).getUrlBase();
                 Call<Void> call = new RetrofitBuilder(urlBase).getAlunoService().insere(aluno);
